@@ -20,7 +20,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', engine);
 
 
-mongoose.connect('mongodb://localhost:27017/soman')
+// mongoose.connect('mongodb://localhost:27017/soman')
+mongoose.connect('mongodb+srv://cphafis:iPsRCLcrnVgNtFyu@sabu.wkeexol.mongodb.net/?retryWrites=true&w=majority')
     .then(() => {
     console.log("Database Connected");
 })
