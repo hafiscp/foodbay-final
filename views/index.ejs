@@ -5,8 +5,14 @@
     <nav class="navbar">
       <a href=""><span style="font-weight: 700 ; color: white;" > #FoodiesCorner </span></a>
       <div class="navbar__menu_container">
+        <% if (kuUser) { %>
+         
         <a href="/notification" class="link"><span style="font-weight: 700 ; color: white;" > Notifications </span> </a>
         <a href="" class="link"><span style="font-weight: 700 ; color: white;" > | </span> </a>
+        
+        <% } %>
+
+        
         <% if(!kuUser){ %> 
         <a href="/login" class="link"><span style="font-weight: 700 ; color: white;" > Login / SignUp </span></a>
         <!-- <a href="" class="link"><span style="font-weight: 700 ; color: white;" > | </span> </a>
@@ -31,7 +37,8 @@
       <input
         class="input_container_location"
         type="text"
-        placeholder="Hello <%= kuUser? kuUser.username: "New Face, "  %> Login/SignUp right away."
+        disabled
+        placeholder="Hello, Login/SignUp right away."
       />
       <!-- <input
         class="input_container_search"
@@ -115,13 +122,27 @@
       <a class="footer__link" href="/ourteam">About Us</a>
       <a class="footer__link" href="/feedback">Feedbacks</a>
     </div>
+
     
-    <div class="link__container">
+    <% if(kuUser && kuUser.isOwner == "true"){ %> 
+    <div class="link__container">  
       <h5>FOR RESTAURANTS</h5>
-      <a class="footer__link" href="/newRestaurant">Add New Restaurant</a>
+        <a class="footer__link" href="/newRestaurant">Add New Restaurant</a>
+        <br />
+      </div>
+        <% } else { %>
+          <% } %>  
+
+      <!-- <a class="footer__link" href="/newRestaurant">Add New Restaurant</a> -->
       <!-- <a class="footer__link" href="#">Apps For You</a> -->
+      
+    
+
+    <!-- <div class="link__container">  
+      <h5>FOR RESTAURANTS</h5>
+        <a class="footer__link" href="/newRestaurant">Add New Restaurant</a>
       <br />
-    </div>
+    </div> -->
 
     <div class="link__container">
       <h5>LEARN MORE</h5>

@@ -95,8 +95,8 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/signup',async (req,res)=>{
-    const {username,password,email,number} = req.body;
-    const user = new User({username,email,number});
+    const {username,password,email,number,isOwner} = req.body;
+    const user = new User({username,email,number,isOwner});
     User.register(user,password)
     .then(user=>{
         req.login(user,err=>{
@@ -163,10 +163,27 @@ app.post('/newRestaurant',async (req, res) => {
     }
 });
 
+app.post('/seat/:res_id', async (req,res)=>{
+    const{name,time,seats,kuUser,id}=req.body
+    const{res_id}=req.params
+    const user = await User.findById(id)
+    const sugu = {
+        name,
+        time,
+        seats,
+        kuUser,
+        res_id
+    }
+    user.booking.push(sugu)
+    await user.save()
+    res.redirect('/')
+    
+});
+
 app.get('/restaurent/:id',async (req,res)=>{
     const {id} = req.params;
     if(mongoose.Types.ObjectId.isValid(id)){
-    const data = await Restaurent.findById(id);
+    const data = await Restaurent.findById(id).populate("owner");
     res.render('show',{data});
     // res.send(data);
     }else{

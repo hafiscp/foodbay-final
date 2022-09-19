@@ -108,42 +108,21 @@
     <div class="row" style="margin-top:2rem;">
       
         <div class="col-md-12" style="margin-top:1rem;">
+        <% kuUser.booking.forEach((data,index)=>{ %> 
         <div class="card">
           <div class="card-body" style="background-color: rgb(254, 255, 237) ;">
-            <h5 class="card-title">Notification #01</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iusto esse dolorum rem laudantium, eligendi fugit libero autem quis aliquam nemo asperiores illum. Ducimus, ullam adipisci earum debitis voluptatum inventore?
-            Nisi veniam accusantium molestiae reprehenderit et ex amet, iste neque nihil asperiores. Blanditiis nemo ipsa debitis non, voluptates doloremque hic rem magni esse enim quasi provident corporis, illo fugiat quam.
-            Dolorum mollitia animi id, ipsam voluptates pariatur vitae, aliquid iste culpa sint, aut officiis nisi aperiam ea quis numquam officia perferendis vel obcaecati illum voluptatibus natus ut. Accusamus, harum molestias!</p>
+            <h5 class="card-title">Notification #0<%= index+1 %> </h5>
+            <p class="card-text"> Hey, You've a <strong>New Booking</strong> for <strong><%= data.time %></strong>  <br> 
+              From <strong><%= data.name %></strong>. <br>
+              Prepare about <strong><%= data.seats%> Seats</strong> <br>
+              Are you able to reserve the seats for this customer !? <br>
+              <strong>Agree</strong> if seats are available; <strong>Reject</strong> if unavailable. <br>  
+            </p>
             <a href="/" class="btn btn-success" style="color: rgb(255, 255, 255) ; ">Accept</a>
             <a href="/" class="btn btn-danger" style="padding:6px 50px 6px 50px; ">Reject</a>
           </div>
-        </div>
-      </div>
-
-      <div class="col-md-12" style="margin-top:1rem;">
-        <div class="card">
-          <div class="card-body" style="background-color: rgb(254, 255, 237) ;">
-            <h5 class="card-title">Notification #01</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iusto esse dolorum rem laudantium, eligendi fugit libero autem quis aliquam nemo asperiores illum. Ducimus, ullam adipisci earum debitis voluptatum inventore?
-            Nisi veniam accusantium molestiae reprehenderit et ex amet, iste neque nihil asperiores. Blanditiis nemo ipsa debitis non, voluptates doloremque hic rem magni esse enim quasi provident corporis, illo fugiat quam.
-            Dolorum mollitia animi id, ipsam voluptates pariatur vitae, aliquid iste culpa sint, aut officiis nisi aperiam ea quis numquam officia perferendis vel obcaecati illum voluptatibus natus ut. Accusamus, harum molestias!</p>
-            <a href="/" class="btn btn-success" style="color: rgb(255, 255, 255) ; ">Accept</a>
-            <a href="/" class="btn btn-danger" style="padding:6px 50px 6px 50px; ">Reject</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-12" style="margin-top:1rem;">
-        <div class="card">
-          <div class="card-body" style="background-color: rgb(254, 255, 237) ;">
-            <h5 class="card-title">Notification #01</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis iusto esse dolorum rem laudantium, eligendi fugit libero autem quis aliquam nemo asperiores illum. Ducimus, ullam adipisci earum debitis voluptatum inventore?
-            Nisi veniam accusantium molestiae reprehenderit et ex amet, iste neque nihil asperiores. Blanditiis nemo ipsa debitis non, voluptates doloremque hic rem magni esse enim quasi provident corporis, illo fugiat quam.
-            Dolorum mollitia animi id, ipsam voluptates pariatur vitae, aliquid iste culpa sint, aut officiis nisi aperiam ea quis numquam officia perferendis vel obcaecati illum voluptatibus natus ut. Accusamus, harum molestias!</p>
-            <a href="/" class="btn btn-success" style="color: rgb(255, 255, 255) ; ">Accept</a>
-            <a href="/" class="btn btn-danger" style="padding:6px 50px 6px 50px; ">Reject</a>
-          </div>
-        </div>
+        </div><br>
+      <% }) %> 
       </div>
 
       
