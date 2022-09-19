@@ -11,6 +11,7 @@ const bookingSchema = new Schema({
     kuUser:String
 })
 
+
 const UserSchema = new Schema({
     email: {
         type: String,
@@ -30,7 +31,10 @@ const UserSchema = new Schema({
         default:false,
         required:true
     },
-    booking:[bookingSchema]
+    booking:[bookingSchema],
+    app:{
+        type:String
+    }
 });
 
 UserSchema.plugin(passportLocalMongoose);

@@ -125,8 +125,19 @@ app.get('/logout',(req,res)=>{
 })
 
 app.get('/notification', (req, res) => {
+    // res.send(req.user)
     res.render('notification');
 });
+
+
+app.get("/accept/:kuid/:id",async(req,res)=>{
+    const rest = await Restaurent.findById(req.params.id)
+    const user = await User.findById(req.params.kuid)
+    
+    user.app = rest.name
+    await user.save()
+    res.send(user)
+})
 
 // app.post('/notification', (req, res) => {
 //     res.render('notification');
