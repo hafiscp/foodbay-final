@@ -136,7 +136,7 @@ app.get("/accept/:kuid/:id",async(req,res)=>{
     
     user.app = rest.name
     await user.save()
-    res.send(user)
+    res.redirect('/')
 })
 
 // app.post('/notification', (req, res) => {
