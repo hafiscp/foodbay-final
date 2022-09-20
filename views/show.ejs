@@ -291,13 +291,20 @@ html {
         <h6><strong>Time : </strong> <%= data.time %>  </h6>
         <h6><strong>Contact : </strong> <%= data.number %>  </h6>
         <h6><strong>Email : </strong> <%= data.email %>  </h6>
-        <h6><strong>Website : </strong> <a href="<%= data.website %>"><%= data.website %></a>  </h6>  <br><br>
+        <h6><strong>Website : </strong> <a href="<%= data.website %>"><%= data.website %></a>  </h6>  
+        
+        <br><br>
         
         
         <!-- <button class="btn btn-outline-success book-seat" type="submit">Book Seat</button> -->
+        <% if (kuUser && kuUser.isOwner === "false") { %>
         <button type="button" class="btn btn-danger btn-outline-success book-seat" style="color: white ;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Book Seat</button>
         <button class="btn-primary btn favourite-seat" style=" color: wheat;" type="submit"> FAV </button>
+        <% }else{ %>
+          <h4><strong style="color: rgb(134, 0, 0);"> If you're the Owner / If you've not logged in yet,<br> Kindly Login For Book your Seats </strong></h4>
+        <% } %> 
       </div>
+
       <div class="col-md-5">
         <div style="width:100%; height:100%;background-image: url('<%= data.image %>');"></div>
 
@@ -339,14 +346,14 @@ html {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="/seat/<%= data._id %>" method="post">
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Customer Name : </label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" id="recipient-name" name="name">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Time : </label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" name="time">
               <option selected>Time</option>
               <option value="10am - 11am">10am - 11am</option>
               <option value="11am - 12pm">11am - 12pm</option>
@@ -366,7 +373,7 @@ html {
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Total Seats : </label>
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" name="seats">
               <option selected>Seats</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -380,13 +387,29 @@ html {
               <option value="10">10</option>
             </select>
           </div>
-          
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Owner id : </label>
+            <input type="text" class="form-control" id="recipient-name" name="id" readonly value="<%= data.owner._id %>">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">User id : </label>
+            <% if(kuUser){ %> 
+            <input type="text" class="form-control" id="recipient-name" name="kuUser" readonly value="<%= kuUser._id %>">
+              <% } %> 
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
+            <button class="btn btn-primary">CONFIRM</button>
+          </div>
         </form>
       </div>
-      <div class="modal-footer justify-content-center">
+      
+    
+      
+      <!-- <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCEL</button>
         <button type="button" class="btn btn-primary">CONFIRM</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

@@ -20,7 +20,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', engine);
 
 
-mongoose.connect('mongodb://localhost:27017/soman')
+// mongoose.connect('mongodb://localhost:27017/soman')
+mongoose.connect(process.env.MONGODBURI)
     .then(() => {
     console.log("Database Connected");
 })
@@ -94,8 +95,8 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/signup',async (req,res)=>{
-    const {username,password,email,number} = req.body;
-    const user = new User({username,email,number});
+    const {username,password,email,number,isOwner} = req.body;
+    const user = new User({username,email,number,isOwner});
     User.register(user,password)
     .then(user=>{
         req.login(user,err=>{
@@ -124,8 +125,19 @@ app.get('/logout',(req,res)=>{
 })
 
 app.get('/notification', (req, res) => {
+    // res.send(req.user)
     res.render('notification');
 });
+
+
+app.get("/accept/:kuid/:id",async(req,res)=>{
+    const rest = await Restaurent.findById(req.params.id)
+    const user = await User.findById(req.params.kuid)
+    
+    user.app = rest.name
+    await user.save()
+    res.redirect('/')
+})
 
 // app.post('/notification', (req, res) => {
 //     res.render('notification');
@@ -162,10 +174,27 @@ app.post('/newRestaurant',async (req, res) => {
     }
 });
 
+app.post('/seat/:res_id', async (req,res)=>{
+    const{name,time,seats,kuUser,id}=req.body
+    const{res_id}=req.params
+    const user = await User.findById(id)
+    const sugu = {
+        name,
+        time,
+        seats,
+        kuUser,
+        res_id
+    }
+    user.booking.push(sugu)
+    await user.save()
+    res.redirect('/')
+    
+});
+
 app.get('/restaurent/:id',async (req,res)=>{
     const {id} = req.params;
     if(mongoose.Types.ObjectId.isValid(id)){
-    const data = await Restaurent.findById(id);
+    const data = await Restaurent.findById(id).populate("owner");
     res.render('show',{data});
     // res.send(data);
     }else{
@@ -181,6 +210,8 @@ app.delete('/restaurent/:id', async (req, res) => {
     res.redirect('/');
 })
 
-app.listen(3000, () => {
+let port = process.env.PORT || 3000
+
+app.listen(port, () => {
     console.log('App listening on port 3000!');
 });
